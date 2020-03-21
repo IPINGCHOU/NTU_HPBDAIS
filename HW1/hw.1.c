@@ -37,11 +37,10 @@ double	a[NRA][NCA],           /* matrix A to be multiplied */
 
 chunk = 10;                    /* set loop iteration chunk size */
 
-clock_t start=0; 
+double start = omp_get_wtime();
 
 
-start = clock();
-printf("start:%ld\n",start);
+printf("start:%lf\n",start);
 /*** Spawn a parallel region explicitly scoping all variables ***/
 #pragma omp parallel shared(a,b,c,nthreads,chunk) private(tid,i,j,k) num_threads(number_of_thread)
   {
@@ -83,13 +82,13 @@ printf("start:%ld\n",start);
     }
   }   /*** End of parallel region ***/
 
- clock_t end;
- end = clock();
- printf("end:%ld \n",end);
+ 
+ double end = omp_get_wtime();
+ printf("end:%lf \n",end);
 
- clock_t t = end - start;
- double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds    
- printf("fun() took %f seconds to execute \n", time_taken); 
+ double t = end - start;
+ // double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds    
+ printf("fun() took %lf seconds to execute \n", t); 
 
 /*** Print results ***/
 printf("******************************************************\n");
