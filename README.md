@@ -22,5 +22,9 @@ gcc hw.1.c -o <exec_file_name> -fopenmp
 ### usage
 ```bash=
 mpicc -g -Wall -o <exec_file_name> mpi_matrix.c
-mpiexec -n <num_of_threads> ./<exec_file_name> <times_of_matrix>
+mpiexec -n <num_of_process> ./<exec_file_name> <times_of_matrix>
+# or run with multiple server
+mpirun -host <remote1>:<slots>,<remote2>:<slots> -np <num_of_process> ./mpi_matrix <times_of_matrix>
+# or run with a custom server list
+mpirun -np <num_of_process> --hostfile <hostfile> ./mpi_matrix <times_of_matrix>
 ```
